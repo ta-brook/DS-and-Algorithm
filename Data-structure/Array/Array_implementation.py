@@ -1,6 +1,3 @@
-from hashlib import new
-
-
 class myArray:
     def __init__(self):
         self.length = 0
