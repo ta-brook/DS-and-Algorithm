@@ -1,6 +1,3 @@
-from audioop import reverse
-
-
 class Solution:
     def validPalindrome(s: str):
         '''
