@@ -1,28 +1,14 @@
-# 1 --> 10 --> 99 --> 5 --> 16
-
-# my_linked_list = {
-#     'head': {
-#         'value': 10,
-#         'next': {
-#             'value': 5,
-#             'next': {
-#                 'value': 16,
-#                 'next':null
-#             }
-#         }
-#     }
-# }
-
 class Node():
-    def __init__(self, value, next=None):
+    def __init__(self, value, next=None, prev=None):
         self.value = value
         self.next = next
+        self.prev = prev
 
     def __repr__(self):
-        return self.value
+        return f"Node Object: {self.__class__.__name__}"
 
 
-class linked_list():
+class doubly_linked_lists():
     def __init__(self, value):
         self.head = Node(value)
         self.tail = self.head
@@ -41,6 +27,7 @@ class linked_list():
 
     def append(self, value):
         new_node = Node(value)
+        new_node.prev = self.tail
         self.tail.next = new_node
         self.tail = new_node
         self.length += 1
@@ -48,6 +35,7 @@ class linked_list():
 
     def prepend(self, value):
         new_node = Node(value, self.head)
+        self.head.prev = new_node
         self.head = new_node
         self.length += 1
         return self
@@ -68,22 +56,25 @@ class linked_list():
         else:
             new_node = Node(value)
             leader = self.traverse_to_index(index-1)
-            new_node.next  = leader.next
+            new_node.next = leader.next
+            leader.prev = leader
             leader.next = new_node
+            leader.next.prev = new_node
             self.length += 1
             return self
 
-    def remove(self, index):
-        leader = self.traverse_to_index(index-1)
-        unwanted_node = leader.next
-        leader.next = unwanted_node.next
-        self.length -= 1
-        return self
+    # def remove(self, index):
+    #     leader = self.traverse_to_index(index-1)
+    #     unwanted_node = leader.next
+    #     leader.next = unwanted_node.next
+    #     self.length -= 1
+    #     return self
 
-myLinkedList = linked_list(10)
+
+myLinkedList = doubly_linked_lists(10)
 myLinkedList.append(5)
 myLinkedList.append(16)
 myLinkedList.prepend(1)
 myLinkedList.insert(2, 99)
-myLinkedList.remove(2)
+# myLinkedList.remove(2)
 print(myLinkedList)
