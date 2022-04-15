@@ -1,18 +1,5 @@
 # 1 --> 10 --> 99 --> 5 --> 16
 
-# my_linked_list = {
-#     'head': {
-#         'value': 10,
-#         'next': {
-#             'value': 5,
-#             'next': {
-#                 'value': 16,
-#                 'next':null
-#             }
-#         }
-#     }
-# }
-
 class Node():
     def __init__(self, value, next=None):
         self.value = value
@@ -68,7 +55,7 @@ class linked_list():
         else:
             new_node = Node(value)
             leader = self.traverse_to_index(index-1)
-            new_node.next  = leader.next
+            new_node.next = leader.next
             leader.next = new_node
             self.length += 1
             return self
@@ -80,10 +67,27 @@ class linked_list():
         self.length -= 1
         return self
 
+    def reverse(self):
+        if not self.head.next:
+            return self.head
+        first = self.head
+        self.tail = self.head
+        second = first.next
+        while second:
+            temp = second.next
+            second.next = first
+            first = second
+            second = temp
+        self.head.next = None
+        self.head = first
+        return self
+
+
 myLinkedList = linked_list(10)
 myLinkedList.append(5)
 myLinkedList.append(16)
 myLinkedList.prepend(1)
 myLinkedList.insert(2, 99)
 myLinkedList.remove(2)
+myLinkedList.reverse()
 print(myLinkedList)
