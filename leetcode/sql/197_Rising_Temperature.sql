@@ -9,7 +9,7 @@ FROM
 WHERE
     wt1.temperature > wt2.temperature 
     AND
-    DAYOFYEAR(wt1.recordDate) - DAYOFYEAR(wt2.recordDate) = 1
+    DATEDIFF(wt1.recordDate , wt2.recordDate) = 1
 
 /*
 Example 1:
