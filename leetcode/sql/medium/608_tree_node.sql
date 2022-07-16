@@ -8,6 +8,18 @@ Write an SQL query to report the type of each node in the tree.
 */
 
 SELECT
+    id,
+    CASE
+        WHEN p_id IS NULL THEN 'Root'
+        WHEN id IN (SELECT DISTINCT p_id FROM Tree) THEN 'Inner'
+        ELSE 'Leaf'
+    END AS type
+FROM
+    Tree
+
+
+-- NOTE Long version
+SELECT
     id, 
     'Root' AS type
 FROM 
@@ -54,6 +66,10 @@ WHERE
     p_id IS NOT NULL
     
 ORDER BY id
+
+
+
+
 
 /*
 Input: 
